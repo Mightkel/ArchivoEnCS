@@ -7,7 +7,7 @@ int menu()
     Console.WriteLine("2. Mostrar");
     Console.WriteLine("3. Salir");
     Console.Write("Digita tu opción: ");
-    return int.Parse(Console.ReadLine());
+    return int.Parse(Console.ReadLine()!);
 }
 
 void pedirdatos()
@@ -17,7 +17,7 @@ void pedirdatos()
         Console.Write("Ingrese el nombre del estudiante: ");
         try
         {
-            estudiante[i].nombre = Console.ReadLine();
+            estudiante[i].nombre = Console.ReadLine()!;
         }
         catch (FormatException ex)
         {
@@ -28,7 +28,7 @@ void pedirdatos()
         Console.Write("Ingrese la carrera del estudiante: ");
         try
         {
-            estudiante[i].carrera = Console.ReadLine();
+            estudiante[i].carrera = Console.ReadLine()!;
         }
         catch (FormatException ex)
         {
@@ -39,7 +39,7 @@ void pedirdatos()
         Console.Write("Ingrese el promedio del estudiante: ");
         try
         {
-            estudiante[i].promedio = double.Parse(Console.ReadLine());
+            estudiante[i].promedio = double.Parse(Console.ReadLine()!);
         }
         catch (FormatException ex)
         {
@@ -56,6 +56,17 @@ void mostrardatos()
     {
         Console.WriteLine($"{estudiante[i].nombre} | {estudiante[i].carrera} | {estudiante[i].promedio}");
     }
+}
+
+void guardararchivo()
+{
+    StreamWriter archivo = new StreamWriter("registro.txt");
+    for (int i = 0; i < 10; i++)
+    {
+        archivo.WriteLine(estudiante[i].nombre + ";" + estudiante[i].carrera + ";" + estudiante[i].promedio);
+    }
+    archivo.Close();
+    Console.WriteLine("Registro guardado");
 }
 
 void main()
