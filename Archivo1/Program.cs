@@ -15,6 +15,7 @@ void pedirdatos()
 {
     for (int i = 0; i < 10; i++)
     {
+        Console.WriteLine($"Registro #{i + 1}");
         Console.Write("Ingrese el nombre del estudiante: ");
         try
         {
@@ -61,7 +62,7 @@ void mostrardatos()
 
 void guardararchivo()
 {
-    StreamWriter archivo = new StreamWriter("registro.txt");
+    StreamWriter archivo = new StreamWriter("registro.csv");
     for (int i = 0; i < 10; i++)
     {
         archivo.WriteLine(estudiante[i].nombre + ";" + estudiante[i].carrera + ";" + estudiante[i].promedio);
