@@ -94,7 +94,7 @@ void main()
                 Console.WriteLine("Opcion invalida");  
                 break;
         }
-    }while (op != 3);
+    }while (op != 4);
 }
 
 main();
