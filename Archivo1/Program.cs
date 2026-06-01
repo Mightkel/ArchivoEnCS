@@ -5,7 +5,8 @@ int menu()
 {
     Console.WriteLine("1. Agregar");
     Console.WriteLine("2. Mostrar");
-    Console.WriteLine("3. Salir");
+    Console.WriteLine("3. Guardar Archivo");
+    Console.WriteLine("4. Salir");
     Console.Write("Digita tu opción: ");
     return int.Parse(Console.ReadLine()!);
 }
@@ -84,6 +85,9 @@ void main()
                 mostrardatos();
                 break;
             case 3:
+                guardararchivo();
+                break;
+            case 4:
                 Console.WriteLine("Adios...");
                 break;
             default:
