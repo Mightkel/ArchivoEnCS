@@ -1,5 +1,6 @@
 ﻿//Akmacenar 10 registros de estudiantes; nombre, carrera y promedio
 Estudiante[] estudiante = new Estudiante[10];
+int i = 0;
 
 int menu()
 {
@@ -13,7 +14,7 @@ int menu()
 
 void pedirdatos()
 {
-    for (int i = 0; i < 10; i++)
+    if (i < 10 )
     {
         Console.WriteLine($"Registro #{i + 1}");
         Console.Write("Ingrese el nombre del estudiante: ");
@@ -48,15 +49,20 @@ void pedirdatos()
             Console.WriteLine($"Error: {ex.Message}");
             i--;
         }
-        
+    i++;
+    }
+    else
+    {
+        Console.WriteLine("No hay espacio para mas registros");
     }
 }
 
 void mostrardatos()
 {
-    for (int i = 0; i < 10; i++)
+    for (int cont = 0; cont < 10; cont++)
     {
-        Console.WriteLine($"{estudiante[i].nombre} | {estudiante[i].carrera} | {estudiante[i].promedio}");
+        Console.WriteLine($"Estudiante #: {cont + 1}");
+        Console.WriteLine($"{estudiante[cont].nombre} | {estudiante[cont].carrera} | {estudiante[cont].promedio}");
     }
 }
 
@@ -71,9 +77,25 @@ void guardararchivo()
     Console.WriteLine("Registro guardado");
 }
 
+void leerarchivo()
+{
+    StreamReader archivo = new StreamReader("registro.csv");
+    string linea;
+    while((linea = archivo.ReadLine()!) != null && i < 10)
+    {
+        string[] dato = linea.Split(';');
+        estudiante[i].nombre = dato[0];
+        estudiante[i].carrera = dato[1];
+        estudiante[i].promedio = double.Parse(dato[2]);
+        i++;
+    }
+    archivo.Close();
+}
+
 void main()
 {
     int op;
+    leerarchivo();
     do
     {
         op = menu();
