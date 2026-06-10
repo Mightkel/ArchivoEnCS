@@ -7,7 +7,8 @@ int menu()
     Console.WriteLine("1. Agregar");
     Console.WriteLine("2. Mostrar");
     Console.WriteLine("3. Guardar Archivo");
-    Console.WriteLine("4. Salir");
+    Console.WriteLine("4. Eliminar");
+    Console.WriteLine("0. Salir");
     Console.Write("Digita tu opción: ");
     return int.Parse(Console.ReadLine()!);
 }
@@ -69,12 +70,40 @@ void mostrardatos()
 void guardararchivo()
 {
     StreamWriter archivo = new StreamWriter("registro.csv");
-    for (int i = 0; i < 10; i++)
+    for (int cont = 0; cont < i; cont++)
     {
-        archivo.WriteLine(estudiante[i].nombre + ";" + estudiante[i].carrera + ";" + estudiante[i].promedio);
+        archivo.WriteLine(estudiante[cont].nombre + ";" + estudiante[cont].carrera + ";" + estudiante[cont].promedio);
     }
     archivo.Close();
     Console.WriteLine("Registro guardado");
+}
+
+int buscarRegistro(string nombre)
+{
+    return Array.FindIndex(estudiante, est => est.nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+}
+
+void eliminarRegistro(string nombre)
+{
+    int pos = buscarRegistro(nombre);
+
+    if (pos == -1)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("Estudiante no existe");
+        Console.ResetColor();
+        Console.ReadKey();
+        return;
+    }
+    for(int i = pos; i< estudiante.Length-1 ; i++)
+    {
+        estudiante[i] = estudiante[i + 1];
+    }
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
+    Console.WriteLine("Registro eliminado");
+    i--;
+    Console.ReadKey();
+    Console.ResetColor();
 }
 
 void leerarchivo()
@@ -94,6 +123,7 @@ void leerarchivo()
 
 void main()
 {
+    string nombre;
     int op;
     leerarchivo();
     do
@@ -111,13 +141,18 @@ void main()
                 guardararchivo();
                 break;
             case 4:
+                Console.WriteLine("Que estudiante deseas eliminar? ");
+                nombre = Console.ReadLine();
+                eliminarRegistro(nombre);
+                break;
+            case 0:
                 Console.WriteLine("Adios...");
                 break;
             default:
                 Console.WriteLine("Opcion invalida");  
                 break;
         }
-    }while (op != 4);
+    }while (op != 0);
 }
 
 main();
